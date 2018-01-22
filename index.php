@@ -79,6 +79,27 @@
 
             </td>
         </tr>
+<?php
+$stmt = $conexion->prepare("SELECT * FROM equipo ORDER BY categoria, nombre");
+// Especificamos el fetch mode antes de llamar a fetch()
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+// Ejecutamos
+$stmt->execute();
+// Mostramos los resultados
+while ($row = $stmt->fetch()) :
+?>
+        <tr>
+            <td class="titulo">
+                <?php echo $row["nombre"] ?>
+            </td>
+            <td class="puntuacion">
+                <?php echo $row["categoria"] ?>
+            </td>
+            <td class="boton">
+                <a href="borrar.php?id=<?php echo $row["id"] ?>">Borrar</a>
+            </td>
+        </tr>
+<?php endwhile; ?>
         <span id="lista">
         </span>
     </table>

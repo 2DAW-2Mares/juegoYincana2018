@@ -32,3 +32,9 @@
             echo "Se ha creado un nuevo registro!";
         };
     }
+    
+    function borrarEquipo($conexion, $id) {
+        $stmt = $conexion->prepare("DELETE FROM equipo WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
