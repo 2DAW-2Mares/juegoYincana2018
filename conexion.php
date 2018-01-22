@@ -38,3 +38,13 @@
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
+
+    function getEquipos($conexion) {
+        $stmt = $conexion->prepare("SELECT * FROM equipo ORDER BY categoria, nombre");
+// Especificamos el fetch mode antes de llamar a fetch()
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+// Ejecutamos
+        $stmt->execute();
+// Devolvemos los resultados
+        return $stmt->fetchAll();
+    }

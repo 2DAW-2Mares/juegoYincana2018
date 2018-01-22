@@ -80,26 +80,21 @@
             </td>
         </tr>
 <?php
-$stmt = $conexion->prepare("SELECT * FROM equipo ORDER BY categoria, nombre");
-// Especificamos el fetch mode antes de llamar a fetch()
-$stmt->setFetchMode(PDO::FETCH_ASSOC);
-// Ejecutamos
-$stmt->execute();
-// Mostramos los resultados
-while ($row = $stmt->fetch()) :
+$equipos = getEquipos($conexion);
+foreach ($equipos as $equipo) :
 ?>
         <tr>
             <td class="titulo">
-                <?php echo $row["nombre"] ?>
+                <?php echo $equipo["nombre"] ?>
             </td>
             <td class="puntuacion">
-                <?php echo $row["categoria"] ?>
+                <?php echo $equipo["categoria"] ?>
             </td>
             <td class="boton">
-                <a href="borrar.php?id=<?php echo $row["id"] ?>">Borrar</a>
+                <a href="borrar.php?id=<?php echo $equipo["id"] ?>">Borrar</a>
             </td>
         </tr>
-<?php endwhile; ?>
+<?php endforeach; ?>
         <span id="lista">
         </span>
     </table>
