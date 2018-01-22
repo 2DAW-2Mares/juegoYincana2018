@@ -39,8 +39,10 @@
         $stmt->execute();
     }
 
-    function getEquipos($conexion) {
-        $stmt = $conexion->prepare("SELECT * FROM equipo ORDER BY categoria, nombre");
+    function getEquipos($conexion, $puntuacion = false) {
+        $sentencia = "SELECT * FROM equipo ORDER BY categoria, ";
+        $sentencia .= $puntuacion ? "puntuacion DESC" : "nombre";
+        $stmt = $conexion->prepare($sentencia);
 // Especificamos el fetch mode antes de llamar a fetch()
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 // Ejecutamos
@@ -48,3 +50,14 @@
 // Devolvemos los resultados
         return $stmt->fetchAll();
     }
+
+    function actualizaPuntuacion($conexion, $id, $puntuacion) {
+        $sentencia = "UPDATE equipo SET puntuacion = :puntuacion ";
+        $sentencia .= "WHERE id = :id";
+        $stmt = $conexion->prepare($sentencia);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':puntuacion', $puntuacion);
+
+        if($stmt->execute()) {};
+    }
+
