@@ -4,10 +4,11 @@
     
     $conexion = openDB();
     $equipo = new Equipo();
-    $equipo->setNombre('Mi equipo');
-    $equipo->setCategoria(Equipo::PEQUENYOS);
-    insertaEquipo($conexion, $equipo);
-    
+    if(isset($_POST["nombre"]) && htmlspecialchars($_POST["nombre"]) !=''){
+        $equipo->setNombre(htmlspecialchars($_POST["nombre"]));
+        $equipo->setCategoria(htmlspecialchars($_POST["categoria"]));
+        insertaEquipo($conexion, $equipo);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,28 +42,20 @@
         background-color: #ffffff;
     }
 </style>
-<script>
-    $(document).ready(function () {
-        $(titulo).focus();
-        $(insertar).click(function () {
-            $("table tr:last").after("<tr><td class='titulo'>" + $(titulo).val() + "</td><td class='puntuacion'>" + $(puntuacion).val() +
-                "</td><td class='boton'><button class='eliminar'>Eliminar</button</td></tr>");
-            $("td .eliminar").on("click", function(){
-                $(this).parent().parent().remove();
-            });
-            $(titulo).val("");
-            $(puntuacion).val("");
-            $(titulo).focus();
-        });
-    })
-</script>
 
 <body>
-    <h1> Mis pelis favoritas</h1>
-    Título
-    <input type="text" id="titulo" /> Puntuación
-    <input type="text" id="puntuacion" />
-    <button id="insertar">Añadir</button>
+    <h1> Gestión de equipos</h1>
+    <form action="" method="post">
+        Nombre
+        <input type="text" id="nombre" name="nombre" />
+        Categoría
+        <select name="categoria" id="categoria" >
+            <option name="pequenyos" value="<?php echo Equipo::PEQUENYOS ?>">Peque&ntilde;os</option>
+            <option name="grandes" value="<?php echo Equipo::GRANDES ?>">Grandes</option>
+        </select>
+        <button id="insertar" onclick="submit()">Añadir</button>
+
+    </form>
     <br>
     <br>
     <hr>
@@ -70,10 +63,10 @@
     <table>
         <tr>
             <td class="titulo">
-                Título
+                Nombre
             </td>
             <td class="puntuacion">
-                Puntuación
+                Categor&iacute;a
             </td>
             <td class="boton">
 
