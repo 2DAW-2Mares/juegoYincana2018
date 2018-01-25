@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+?>
+<?php
     $directorioRaiz = dirname($_SERVER['SCRIPT_FILENAME']);
     $directoriosInternos = scandir ( $directorioRaiz , $sorting_order = SCANDIR_SORT_ASCENDING );
 ?>

@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+?>
+<?php
 include_once 'Equipo.php';
 include_once 'conexion.php';
 
